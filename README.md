@@ -1,32 +1,70 @@
-# Project title
-TODO
+# SSL Simulator Project Template
 
-## Features
-TODO
+This repository provides a **ready-to-use template** for creating new projects based on the Swarm Systems Lab (SSL) Simulator.  
+It includes recommended folder structures, example notebooks, controllers, robot models, and visualization tools.  
 
-## Installation
+You can quickly generate a new project using **Cookiecutter**.
 
-We recommend creating a dedicated virtual environment to ensure that the project dependencies do not conflict with other Python packages:
+- All files and folders inside `{{cookiecutter.project_slug}}/` will be copied into your new project.  
+- Use the `cookiecutter.json` to customize project name, author, Python version, etc.
+
+---
+
+## - Getting Started -
+
+### 1. Install Cookiecutter
+
 ```bash
-python -m venv venv
-source venv/bin/activate
+pip install cookiecutter
 ```
-Then, install the required dependencies:
+
+### 2. Generate a New Project
+
+From any folder, run:
+
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+cookiecutter https://github.com/Swarm-Systems-Lab/ssl_simulator_template.git
 ```
 
-> ```requirements.txt``` contains the versions tested for **compatibility with the simulator**.
-Do **not modify the versions** to ensure stable and reproducible environments. Note that ```ssl_simulator``` already provides stable versions for the following core packages: ```numpy```, ```matplotlib```, ```tqdm```, ```pandas```, ```scipy```, ```ipython```.
+- You will be prompted to fill in the project name, author, and other variables defined in `cookiecutter.json`.  
+- Example:
 
-### Additional Dependencies
-Some additional dependencies, such as LaTeX fonts and FFmpeg, may be required. We recommend following the installation instructions provided in the ```ssl_simulator``` [README](https://github.com/Swarm-Systems-Lab/ssl_simulator/blob/master/README.md). 
+```
+project_name [My Simulation Project]: MyFirstSim
+project_slug [my_simulation_project]: my_first_sim
+```
 
-## Usage
+---
 
-We recommend running the Jupyter notebooks in the `notebooks` directory to get an overview of the project's structure and see the code in action.
+### 3. Explore Your New Project
 
-## Credits
+```bash
+cd my_first_sim
+tree
+```
 
-This repository is maintained by [Jesús Bautista Villar](https://sites.google.com/view/jbautista-research). For inquiries or further information, please get in touch with him at <jesbauti20@gmail.com>.
+You will see the folder structure populated with:
+
+- `src/` containing example controllers, robot models, and visualization classes  
+- `notebooks/` with starter Jupyter notebooks  
+- `output/` for simulation data  
+- `requirements.txt` listing project dependencies
+
+---
+
+### 4. Run a Simulation Example
+
+Open the template notebook:
+
+```bash
+jupyter notebook notebooks/template.ipynb
+```
+
+- It demonstrates how to define robots, add controllers, run the simulation, and visualize the results.  
+
+---
+
+## References
+
+- [Cookiecutter Documentation](https://cookiecutter.readthedocs.io/en/latest/)  
+- [SSL Simulator Documentation](https://github.com/Swarm-Systems-Lab/ssl_simulator)  
