@@ -1,0 +1,35 @@
+__all__ = ["ExamplePlot"]
+
+import matplotlib.pyplot as plt
+
+#######################################################################################
+
+class ExamplePlot:
+    def __init__(self, data):
+        self.data = data
+        self.fig, self.ax = plt.subplots()
+
+    # ---------------------------------------------------------------------------------
+    def config_axes(self):
+        self.ax.set_xlabel(r"$X$ [m]")
+        self.ax.set_ylabel(r"$Y$ [m]")
+        self.ax.grid(True)
+
+    def plot(self):
+        self.config_axes()
+        
+        # Extract derired data
+        x = self.data["robot.p"][:,:,0]
+        y = self.data["robot.p"][:,:,1]
+
+        # Create the plot and show it
+        self.ax.plot(x, y, "b")
+        self.ax.scatter(x[0,:], y[0,:], edgecolors="r", marker="s", facecolors="None")
+        self.ax.scatter(x[-1,:], y[-1,:],edgecolors="b", facecolors="None")
+
+        plt.show()
+    
+    def save(self, filename, dpi=100):
+        plt.savefig(filename, dpi=dpi)
+
+#######################################################################################
