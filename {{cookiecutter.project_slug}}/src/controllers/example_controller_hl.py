@@ -15,14 +15,9 @@ class ExampleControllerHL(Controller):
         self.dummy_cmd = None
 
         # ---------------------------        
-        # Controller output variables
-        self.control_vars = {
-            "u": None,
-        }
-
         # Controller variables to be tracked by logger
         self.tracked_vars = {
-            "cmd": self.dummy_cmd,
+            "cmd": lambda: self.dummy_cmd,
         }
 
         self.tracked_settings = {
@@ -30,7 +25,7 @@ class ExampleControllerHL(Controller):
         }
         # ---------------------------
 
-    def compute_control(self, time):
+    def compute_control(self, time, dt):
         omega = np.pi/10
         self.dummy_cmd = np.array([np.cos(time*omega), np.sin(time*omega)])
         self.context.call_interface(self.low_level_ctrl_key, "_example_interface", self.dummy_cmd)

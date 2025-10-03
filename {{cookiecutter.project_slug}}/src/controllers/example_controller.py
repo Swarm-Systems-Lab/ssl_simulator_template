@@ -12,16 +12,17 @@ class ExampleController(Controller):
 
         # Controller variables
         self.dummy_cmd = np.ones((1,2))
+        self.ctrl_u = None
 
         # ---------------------------        
         # Controller output variables
         self.control_vars = {
-            "u": None,
+            "u": lambda: self.ctrl_u,
         }
 
         # Controller variables to be tracked by logger
         self.tracked_vars = {
-            "cmd": self.dummy_cmd,
+            "cmd": lambda: self.dummy_cmd,
         }
 
         self.tracked_settings = {
@@ -35,6 +36,6 @@ class ExampleController(Controller):
     def _example_interface(self, cmd):
         self.dummy_cmd = cmd
 
-    def compute_control(self, time):
+    def compute_control(self, time, dt):
         state = self.context.get_robot_state()
-        self.control_vars["u"] = self.kw * self.dummy_cmd
+        self.ctrl_u = self.kw * self.dummy_cmd
