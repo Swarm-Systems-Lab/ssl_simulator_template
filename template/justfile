@@ -1,0 +1,14 @@
+# justfile - placed in your project root
+
+# Setup the development environment
+setup:
+    uv sync
+
+# Start Jupyter Lab on the notebooks/ directory
+notebook:
+    uv run jupyter lab notebooks/
+
+# Clean build/output artifacts
+clean:
+    rm -rf .venv output/* .ipynb_checkpoints
+    find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true

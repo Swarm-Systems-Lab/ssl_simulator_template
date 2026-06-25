@@ -1,70 +1,66 @@
 # SSL Simulator Project Template
 
-This repository provides a **ready-to-use template** for creating new projects based on the Swarm Systems Lab (SSL) Simulator.  
-It includes recommended folder structures, example notebooks, controllers, robot models, and visualization tools.  
+This repository provides a **ready-to-use template** for creating new research/experiment projects built on top of the Swarm Systems Lab (SSL) Simulator (`ssl_simulator`).
+It includes recommended folder structures, example notebooks, controllers, robot models, and visualization tools.
 
-You can quickly generate a new project using **Cookiecutter**.
+Unlike [`ssl_py_template`](https://github.com/Swarm-Systems-Lab/ssl_py_template) (used for *publishable libraries* like `ssl_simulator` itself), this template is for projects that *consume* `ssl_simulator` - research/experiment repos that are never published as a package, typically notebook-driven, with no CI/publish machinery attached.
 
-- All files and folders inside `{{cookiecutter.project_slug}}/` will be copied into your new project.  
-- Use the `cookiecutter.json` to customize project name, author, Python version, etc.
+You generate a new project using [**Copier**](https://copier.readthedocs.io/).
 
 ---
 
-## - Getting Started -
+## Getting Started
 
-### 1. Install Cookiecutter
+### 1. Install Copier
 
 ```bash
-pip install cookiecutter
+uv tool install copier
+# or: pipx install copier
 ```
 
 ### 2. Generate a New Project
 
-From any folder, run:
-
 ```bash
-cookiecutter https://github.com/Swarm-Systems-Lab/ssl_simulator_template.git
+copier copy gh:Swarm-Systems-Lab/ssl_simulator_template my-new-project
 ```
 
-- You will be prompted to fill in the project name, author, and other variables defined in `cookiecutter.json`.  
-- Example:
-
-```
-project_name [My Simulation Project]: MyFirstSim
-project_slug [my_simulation_project]: my_first_sim
-```
-
----
+- You'll be prompted for the project name, slug, author, and a short description.
 
 ### 3. Explore Your New Project
 
 ```bash
-cd my_first_sim
-tree
+cd my-new-project
+uv sync
 ```
 
-You will see the folder structure populated with:
+You'll get:
 
-- `src/` containing example controllers, robot models, and visualization classes  
-- `notebooks/` with starter Jupyter notebooks  
-- `output/` for simulation data  
-- `requirements.txt` listing project dependencies
+- `src/` with example controllers, robot models, and visualization classes
+- `notebooks/` with a starter Jupyter notebook
+- `output/` for simulation data (gitignored)
+- `pyproject.toml` declaring `ssl_simulator` as a dependency, managed via `uv`
 
----
-
-### 4. Run a Simulation Example
-
-Open the template notebook:
+### 4. Run the Example
 
 ```bash
-jupyter notebook notebooks/template.ipynb
+just notebook
+# or: uv run jupyter lab notebooks/
 ```
 
-- It demonstrates how to define robots, add controllers, run the simulation, and visualize the results.  
+Open `notebooks/template.ipynb` - it demonstrates how to define robots, add
+controllers, run the simulation, and visualize the results.
+
+### Updating a generated project
+
+Generated projects can pull in template improvements later via:
+
+```bash
+copier update
+```
 
 ---
 
 ## References
 
-- [Cookiecutter Documentation](https://cookiecutter.readthedocs.io/en/latest/)  
-- [SSL Simulator Documentation](https://github.com/Swarm-Systems-Lab/ssl_simulator)  
+- [Copier Documentation](https://copier.readthedocs.io/)
+- [SSL Simulator Documentation](https://github.com/Swarm-Systems-Lab/ssl_simulator)

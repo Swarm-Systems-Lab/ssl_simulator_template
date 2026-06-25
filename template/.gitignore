@@ -1,5 +1,6 @@
 # Tmp, output and model folders
-output/
+output/*
+!output/.gitkeep
 tmp/
 
 # --------------------------------------

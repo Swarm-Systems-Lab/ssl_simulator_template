@@ -1,3 +1,0 @@
-## Required python packages ##
-git+https://github.com/Swarm-Systems-Lab/ssl_simulator.git@master
-# {local_folder_dir}/ssl_simulator # for development

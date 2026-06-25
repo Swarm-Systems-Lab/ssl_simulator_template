@@ -1,0 +1,20 @@
+[project]
+name = "{{ project_slug }}"
+version = "0.1.0"
+description = "{{ description }}"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "{{ author_name }}", email = "{{ author_email }}" }
+]
+dependencies = [
+    # ssl_simulator's `examples` extra pulls in matplotlib/IPython/ipykernel
+    "ssl_simulator[examples]>=0.4",
+    "jupyterlab>=4.0",
+    # Add other project dependencies here
+]
+
+# This is a research/experiment project, not a distributed package - there's
+# nothing to build or publish, so uv just manages dependencies and the venv.
+[tool.uv]
+package = false
