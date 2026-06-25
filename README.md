@@ -1,82 +1,62 @@
 # SSL Simulator Project Template
 
-This repository provides a **ready-to-use template** for creating new research/experiment projects built on top of the Swarm Systems Lab (SSL) Simulator (`ssl_simulator`).
-It includes recommended folder structures, example notebooks, controllers, robot models, and visualization tools.
+A [Copier](https://copier.readthedocs.io/) template for research/experiment
+projects built on top of the Swarm Systems Lab Simulator (`ssl_simulator`).
+Notebook-driven, never published as a package - controllers, robot models,
+and visualization tools live in an editable-installed `src/` package.
 
-Unlike [`ssl_py_template`](https://github.com/Swarm-Systems-Lab/ssl_py_template) (used for *publishable libraries* like `ssl_simulator` itself), this template is for projects that *consume* `ssl_simulator` - research/experiment repos that are never published as a package, typically notebook-driven, with no CI/publish machinery attached.
-
-You generate a new project using [**Copier**](https://copier.readthedocs.io/).
-
----
+For *publishable libraries* (like `ssl_simulator` itself), see
+[`ssl_py_template`](https://github.com/Swarm-Systems-Lab/ssl_py_template) instead.
 
 ## Getting Started
 
-### 0. Prerequisites: uv and just
-
-Generated projects are managed with [uv](https://docs.astral.sh/uv/) and use
-[just](https://github.com/casey/just) for common dev commands. Install both
-once per machine:
+### Prerequisites: uv and just
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-```bash
 curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/.local/bin
 ```
 
 (Both installers add themselves to `~/.local/bin` - make sure that's on your `PATH`.)
 
-### 1. Install Copier
+### Generate a New Project
 
 ```bash
 uv tool install copier
-# or: pipx install copier
-```
-
-### 2. Generate a New Project
-
-```bash
 copier copy gh:Swarm-Systems-Lab/ssl_simulator_template my-new-project
-```
-
-- You'll be prompted for the project name, slug, author, and a short description.
-
-### 3. Explore Your New Project
-
-```bash
 cd my-new-project
-uv sync
-```
-
-You'll get:
-
-- `src/` with example controllers, robot models, and visualization classes
-- `notebooks/` with a starter Jupyter notebook
-- `output/` for simulation data (gitignored)
-- `pyproject.toml` declaring `ssl_simulator` as a dependency, managed via `uv`
-
-### 4. Run the Example
-
-```bash
+just setup
 just notebook
-# or: uv run jupyter lab notebooks/
 ```
 
-Open `notebooks/template.ipynb` - it demonstrates how to define robots, add
-controllers, run the simulation, and visualize the results.
+You'll be prompted for the project name, slug, author, and a short
+description. Open `notebooks/template.ipynb` once Jupyter Lab starts - it
+demonstrates how to define robots, add controllers, run the simulation, and
+visualize the results.
 
 ### Updating a generated project
-
-Generated projects can pull in template improvements later via:
 
 ```bash
 copier update
 ```
 
----
+## Template Development
 
-## References
+Working on this template itself (not a generated project):
 
-- [Copier Documentation](https://copier.readthedocs.io/)
-- [SSL Simulator Documentation](https://github.com/Swarm-Systems-Lab/ssl_simulator)
+```bash
+just setup      # Install template metatesting dependencies
+just test       # Run template metatests (includes executing the example notebook)
+just lint       # Lint template code
+just security   # Run security scans with semgrep
+just typecheck  # Run type checks
+just pre-commit # Run pre-commit hooks
+just generate   # Generate a test project for manual inspection
+```
+
+See [docs/template-development.md](docs/template-development.md) for the
+full command reference, architecture notes, and contributing guidelines.
+
+## License
+
+MIT

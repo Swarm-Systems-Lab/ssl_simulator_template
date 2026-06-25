@@ -1,31 +1,152 @@
-# Metatesting environment for the ssl_simulator_template Copier template.
+# SSL Simulator Project Template - Metatesting Environment
 # This pyproject.toml is for the TEMPLATE REPOSITORY itself, not for generated
-# projects - those get their own pyproject.toml from template/pyproject.toml.jinja.
+# projects - those get their own pyproject.toml from template/pyproject.toml.jinja
+
+[build-system]
+requires = [
+    "hatchling",
+    "hatch-vcs",
+]
+build-backend = "hatchling.build"
 
 [project]
 name = "ssl_simulator_template"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Copier template for projects built on ssl_simulator"
+readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "copier>=9.0.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0",
+    "copier>=9.0.0",  # Required for template generation
+    "tox>=4.18",
+    "tox-uv>=1.9",
     "ruff>=0.9.0",
+    "semgrep>=1.54.0",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-xdist>=3.5",  # Parallel test execution
+    "pre-commit>=3.0",
+    "ty>=0.0.14",
 ]
 
-# Metatesting environment only - nothing here is built or published.
-[tool.uv]
-package = false
+# --- Hatch Configuration ---
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
+[tool.hatch.build.targets.wheel]
+# Test-only project - include test files for editable install
+packages = []
+include = ["tests/**/*"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py312"
 
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "F",      # pyflakes
+    "W",      # pycodestyle warnings
+    "I",      # isort (Import sorting)
+    "UP",     # pyupgrade (Modernizes syntax automatically)
+    "B",      # flake8-bugbear (Catches common bugs)
+    "A",      # flake8-builtins
+    "C4",     # flake8-comprehensions
+    "T20",    # flake8-print (Warns about print statements)
+    "SIM",    # flake8-simplify
+    "RUF",    # ruff-specific rules
+    "S",
+]
+ignore = [
+    "D100",   # Missing docstring in public module
+    "D104",   # Missing docstring in public package
+    "E501",   # Line too long (handled by formatter)
+    "F403",
+    "F401",
+    "T201"
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S603"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = ["-v", "--tb=short"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+# Keep test artifacts only on failure for debugging
+tmp_path_retention_policy = "failed"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+
+[tool.tox]
+# Use uv for fast, reproducible environments
+requires = ["tox-uv>=1.0"]
+env_list = ["lint", "tests", "tests-fast", "py312", "py313", "py314"]
+
+[tool.tox.env_run_base]
+# Pass environment variables to test environments
+passenv = ["*"]
+
+[tool.tox.env.lint]
+skip_install = true
+description = "Run linting checks (ruff, semgrep)"
+deps = [
+    "ruff>=0.9.0",
+    "semgrep>=1.54.0",
+]
+commands = [
+    ["ruff", "check", "tests"],
+    ["ruff", "format", "--check", "tests"],
+]
+
+[tool.tox.env.tests]
+description = "Run test suite"
+commands = [
+    ["pytest", "tests"],
+]
+
+[tool.tox.env.tests-fast]
+description = "Run test suite in parallel (skip slow tests)"
+commands = [
+    ["pytest", "tests", "-n", "auto", "-m", "not slow"],
+]
+
+[tool.tox.env.py312]
+description = "Test with Python 3.12"
+base_python = ["python3.12"]
+commands = [
+    ["pytest", "tests"],
+]
+
+[tool.tox.env.py313]
+description = "Test with Python 3.13"
+base_python = ["python3.13"]
+commands = [
+    ["pytest", "tests"],
+]
+
+[tool.tox.env.py314]
+description = "Test with Python 3.14"
+base_python = ["python3.14"]
+commands = [
+    ["pytest", "tests"],
+]

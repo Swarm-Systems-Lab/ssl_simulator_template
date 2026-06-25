@@ -4,6 +4,7 @@ import os
 import shlex
 import shutil
 import subprocess
+from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
@@ -43,7 +44,7 @@ def copy_project(project_path: Path) -> Path:
 
 
 @pytest.fixture
-def project_path(request) -> Path:
+def project_path(request) -> Iterator[Path]:
     """Create a generated project for a single test."""
     test_root = TEMPLATE_ROOT / ".test_projects"
     test_root.mkdir(parents=True, exist_ok=True)

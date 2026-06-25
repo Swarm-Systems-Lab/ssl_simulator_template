@@ -3,18 +3,19 @@ __all__ = ["ExampleController"]
 import numpy as np
 from ssl_simulator import Controller
 
+
 class ExampleController(Controller):
-    def __init__(self, context, kw = 1):
+    def __init__(self, context, kw=1):
         super().__init__(context)
 
         # Controller settings
         self.kw = kw
 
         # Controller variables
-        self.dummy_cmd = np.ones((1,2))
+        self.dummy_cmd = np.ones((1, 2))
         self.ctrl_u = None
 
-        # ---------------------------        
+        # ---------------------------
         # Controller output variables
         self.control_vars = {
             "u": lambda: self.ctrl_u,
@@ -37,5 +38,6 @@ class ExampleController(Controller):
         self.dummy_cmd = cmd
 
     def compute_control(self, time, dt):
-        state = self.context.get_robot_state()
+        #state = self.context.get_robot_state()
+        #state["p"]
         self.ctrl_u = self.kw * self.dummy_cmd

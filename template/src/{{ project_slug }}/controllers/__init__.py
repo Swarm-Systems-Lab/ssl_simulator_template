@@ -1,6 +1,6 @@
 import importlib
-import pkgutil
 import os
+import pkgutil
 
 # Automatically import all symbols from each module in this package that defines __all__
 package_dir = os.path.dirname(__file__)
