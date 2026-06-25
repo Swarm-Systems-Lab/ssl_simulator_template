@@ -44,7 +44,7 @@ pre-commit:
 
 # Run security scans with semgrep
 security:
-    uv run semgrep --config p/ci --config .semgrep.yml
+    ssl-pydev security
 
 # ============================================================================
 # Testing

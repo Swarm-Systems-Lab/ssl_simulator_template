@@ -20,7 +20,6 @@ dependencies = [
     "tox>=4.18",
     "tox-uv>=1.9",
     "ruff>=0.9.0",
-    "semgrep>=1.54.0",
     "pytest>=7.0",
     "pytest-cov>=4.0",
     "pytest-xdist>=3.5",  # Parallel test execution
@@ -108,10 +107,9 @@ passenv = ["*"]
 
 [tool.tox.env.lint]
 skip_install = true
-description = "Run linting checks (ruff, semgrep)"
+description = "Run linting checks"
 deps = [
     "ruff>=0.9.0",
-    "semgrep>=1.54.0",
 ]
 commands = [
     ["ruff", "check", "tests"],
