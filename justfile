@@ -113,6 +113,14 @@ clean:
     rm -rf tests/.pytest_cache
     find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 
+# ============================================================================
+# Composite Commands
+# ============================================================================
+
+# Full CI simulation (do this before pushing!)
+check-all: lint security typecheck pre-commit test
+    @echo " - All checks passed!"
+
 # Show help information
 help:
     @echo "Template Development Commands"
@@ -146,6 +154,7 @@ help:
     @echo ""
     @echo "Utilities:"
     @echo "  just clean        - Clean build and test artifacts"
+    @echo "  just check-all    - Run full CI simulation"
     @echo "  just help         - Show this help message"
     @echo ""
     @echo "Note: These commands are for TEMPLATE DEVELOPMENT only."
