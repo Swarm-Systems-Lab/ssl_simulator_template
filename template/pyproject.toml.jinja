@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "{{ project_slug }}"
 version = "0.1.0"
@@ -14,7 +18,8 @@ dependencies = [
     # Add other project dependencies here
 ]
 
-# This is a research/experiment project, not a distributed package - there's
-# nothing to build or publish, so uv just manages dependencies and the venv.
-[tool.uv]
-package = false
+# A real (if trivial) editable-installed package - controllers/robot_models/
+# visualization import normally (e.g. `from {{ project_slug }}.controllers import X`)
+# with no sys.path hacking needed in notebooks.
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{ project_slug }}"]
