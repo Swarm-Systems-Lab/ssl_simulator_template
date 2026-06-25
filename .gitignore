@@ -1,8 +1,12 @@
 # Tmp, output and model folders
 tmp/
 
+# Template metatesting artifacts
+.test_projects/
+
 # --------------------------------------
 .pytest_cache
+.ruff_cache
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,31 @@
+# Metatesting environment for the ssl_simulator_template Copier template.
+# This pyproject.toml is for the TEMPLATE REPOSITORY itself, not for generated
+# projects - those get their own pyproject.toml from template/pyproject.toml.jinja.
+
+[project]
+name = "ssl_simulator_template"
+version = "0.1.0"
+description = "Copier template for projects built on ssl_simulator"
+requires-python = ">=3.12"
+dependencies = [
+    "copier>=9.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.9.0",
+]
+
+# Metatesting environment only - nothing here is built or published.
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = ["-v", "--tb=short"]

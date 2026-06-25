@@ -1,0 +1,11 @@
+name: Template Metatests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  template-tests:
+    uses: Swarm-Systems-Lab/ssl_ci/.github/workflows/template-metatests.yml@v1

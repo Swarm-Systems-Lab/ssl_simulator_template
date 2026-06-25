@@ -7,10 +7,27 @@ TODO
 
 ## Installation
 
-This project uses [uv](https://docs.astral.sh/uv/) to manage its environment and dependencies:
+### Prerequisites: uv and just
+
+This project is managed with [uv](https://docs.astral.sh/uv/), and uses
+[just](https://github.com/casey/just) for common dev commands. Install both
+once per machine:
 
 ```bash
-uv sync
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/.local/bin
+```
+
+(Both installers add themselves to `~/.local/bin` - make sure that's on your `PATH`.)
+
+### Setup
+
+```bash
+just setup
+# or directly: uv sync
 ```
 
 `pyproject.toml` pins `ssl_simulator` to a tested-compatible version range - don't

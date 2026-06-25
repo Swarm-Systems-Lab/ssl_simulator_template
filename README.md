@@ -11,6 +11,22 @@ You generate a new project using [**Copier**](https://copier.readthedocs.io/).
 
 ## Getting Started
 
+### 0. Prerequisites: uv and just
+
+Generated projects are managed with [uv](https://docs.astral.sh/uv/) and use
+[just](https://github.com/casey/just) for common dev commands. Install both
+once per machine:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/.local/bin
+```
+
+(Both installers add themselves to `~/.local/bin` - make sure that's on your `PATH`.)
+
 ### 1. Install Copier
 
 ```bash
