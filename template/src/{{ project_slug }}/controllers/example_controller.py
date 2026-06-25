@@ -38,6 +38,6 @@ class ExampleController(Controller):
         self.dummy_cmd = cmd
 
     def compute_control(self, time, dt):
-        #state = self.context.get_robot_state()
-        #state["p"]
+        # state = self.context.get_robot_state()
+        # state["p"]
         self.ctrl_u = self.kw * self.dummy_cmd

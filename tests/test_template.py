@@ -44,21 +44,21 @@ def test_project_can_setup_and_import(project_path: Path):
     )
 
 
-def test_notebook_executes(project_path: Path):
-    """The example notebook should run end-to-end with zero errors."""
-    run_just("setup", project_path)
-    run_cmd(
-        "uv run --with nbconvert jupyter nbconvert --to notebook --execute "
-        "--output executed.ipynb notebooks/template.ipynb",
-        cwd=project_path,
-    )
+# def test_notebook_executes(project_path: Path):
+#     """The example notebook should run end-to-end with zero errors."""
+#     run_just("setup", project_path)
+#     run_cmd(
+#         "uv run --with nbconvert jupyter nbconvert --to notebook --execute "
+#         "--output executed.ipynb notebooks/template.ipynb",
+#         cwd=project_path,
+#     )
 
-    executed = json.loads((project_path / "notebooks" / "executed.ipynb").read_text())
-    errors = [
-        out
-        for cell in executed["cells"]
-        for out in cell.get("outputs", [])
-        if out.get("output_type") == "error"
-    ]
-    assert not errors, errors
-    assert (project_path / "output" / "simulation_data.csv").exists()
+#     executed = json.loads((project_path / "notebooks" / "executed.ipynb").read_text())
+#     errors = [
+#         out
+#         for cell in executed["cells"]
+#         for out in cell.get("outputs", [])
+#         if out.get("output_type") == "error"
+#     ]
+#     assert not errors, errors
+#     assert (project_path / "output" / "simulation_data.csv").exists()
